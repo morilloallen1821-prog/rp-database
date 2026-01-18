@@ -3,34 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>RP Database Cloud</title>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <title>RP Database v19.8</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-
     <header class="app-header">
         <div class="header-top">
             <h1 class="app-logo">RP</h1>
             <div class="header-info">
                 <div id="date-display">...</div>
-                <div id="clock-display">00:00:00</div>
+                <div id="clock-display">00:00:00 PM</div>
+                <div style="font-size: 9px; color: #ffdb58;">📍 ANGELES CITY, PAMPANGA</div>
             </div>
         </div>
+        <div class="verse-marquee" id="verse-display">Daily Bread Loading...</div>
     </header>
 
     <main class="app-content">
         <div class="live-tiles">
-            <div class="tile">
-                <span class="tile-title">CASH TODAY</span>
-                <span class="tile-value" id="tile-cash">₱ 0.00</span>
-            </div>
-            <div class="tile">
-                <span class="tile-title">WATER GIVEN</span>
-                <span class="tile-value" id="tile-water">0 PCS</span>
-            </div>
+            <div class="tile"><span class="tile-title">TOTAL CASH TODAY</span><span class="tile-value" id="tile-cash">₱ 0.00</span></div>
+            <div class="tile"><span class="tile-title">WATER GIVEN TODAY</span><span class="tile-value" id="tile-water">0 PCS</span></div>
+            <div class="tile"><span class="tile-title">PEOPLE HELPED</span><span class="tile-value" id="tile-people">0</span></div>
         </div>
 
         <div class="view-tabs">
@@ -38,27 +34,20 @@
             <button id="btn-lgu" class="tab" onclick="switchView('LGU')">LGU WORKERS</button>
         </div>
 
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Search name..." oninput="renderList()">
-        </div>
-
-        <div id="data-list" class="data-list">
-            </div>
+        <div class="search-container"><input type="text" id="search-input" placeholder="Search name or barangay..." oninput="renderList()"></div>
+        <div id="data-list" class="data-list"></div>
     </main>
 
     <footer class="bottom-nav">
-        <button onclick="openAddModal()"><i class="fa fa-plus-circle"></i><span>ADD</span></button>
+        <button onclick="openAddModal()"><i class="fa fa-user-plus"></i><span>ADD</span></button>
         <button onclick="openAssistModal()"><i class="fa fa-handshake"></i><span>ASSIST</span></button>
+        <button onclick="openReports()"><i class="fa fa-chart-line"></i><span>REPORTS</span></button>
         <button onclick="viewHistory()"><i class="fa fa-history"></i><span>HISTORY</span></button>
-        <button onclick="uiMoreMenu()"><i class="fa fa-bars"></i><span>MORE</span></button>
+        <button onclick="uiMoreMenu()"><i class="fa fa-bars"></i><span>MENU</span></button>
     </footer>
 
-    <div id="modal-overlay" class="modal-overlay">
-        <div class="modal-window">
-            <div id="modal-content"></div>
-        </div>
-    </div>
-
+    <input type="file" id="import-file" style="display:none;" accept=".csv" onchange="handleImport(event)">
+    <div id="modal-overlay" class="modal-overlay" onclick="if(event.target==this)closeM()"><div class="modal-window"><div id="modal-content"></div></div></div>
     <script src="script.js"></script>
 </body>
 </html>
